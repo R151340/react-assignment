@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           path={routes.addResources}
           component={AddResourcesPage}
         />
+        <ProtectedRoute component={NotFound} />
       </Switch>
       <ToastContainer />
     </BrowserRouter>
