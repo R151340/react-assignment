@@ -6,7 +6,6 @@ export const FullVH = styled.div`
 `;
 
 export const HomePageContainer = styled.div`
-  background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
   width: 100%;

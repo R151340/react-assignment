@@ -7,6 +7,7 @@ export const HeaderBgContainer = styled.div`
   height: 72px;
   padding: 16px 32px;
   border-bottom: 1px solid #d7dfe9;
+  background-color: white;
 `;
 
 export const WebsiteLogo = styled.img`
@@ -32,12 +33,6 @@ export const AddButton = styled.button`
   line-height: 24px;
   color: white;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: 0.3s all;
-  &:active {
-    transform: scale(0.9);
-  }
 `;
 
 export const FlexRow = styled.div`
