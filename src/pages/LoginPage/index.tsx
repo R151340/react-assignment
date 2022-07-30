@@ -25,7 +25,7 @@ const LoginPage = () => {
   const history = useHistory();
 
   const saveTokenAndGoToHome = (token: string) => {
-    toastNotify("Login successful !", "success");
+    toastNotify("Signed in successfully !", "success");
     Cookies.set("jwt_token", token, { expires: 5 });
     history.replace("/");
   };

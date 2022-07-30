@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import FailureView from "../../components/FailureView";
 import Header from "../../components/Header";
+import LoadingView from "../../components/LoadingView";
 import ResourceCard from "../../components/ResourceCard";
 import Tabs from "../../components/Tabs";
 import ResourceType from "../../config/resourceType";
@@ -60,6 +62,25 @@ const HomePage = () => {
       (activeTab === tabConstants.users && item.tag === tabConstants.users)
   );
 
+  const SuccessView = () => (
+    <CardsContainer>
+      {searchResults.map((item) => (
+        <ResourceCard key={item.id} data={item} />
+      ))}
+    </CardsContainer>
+  );
+
+  const renderViewBasedOnApiStatus = () => {
+    switch (apiStatus) {
+      case apiConstants.success:
+        return <SuccessView />;
+      case apiConstants.inProgress:
+        return <LoadingView />;
+      default:
+        return <FailureView retryMethod={fetchResourcesData} />;
+    }
+  };
+
   return (
     <FullVH>
       <Header activeRoute={routes.home} />
@@ -74,11 +95,7 @@ const HomePage = () => {
             onChange={(e: any) => setSearchInput(e.target.value)}
           />
         </SearchBarWrapper>
-        <CardsContainer>
-          {searchResults.map((item) => (
-            <ResourceCard key={item.id} data={item} />
-          ))}
-        </CardsContainer>
+        {renderViewBasedOnApiStatus()}
       </HomePageContainer>
     </FullVH>
   );

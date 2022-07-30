@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
-import { Link, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import nxtLogo from "../../assets/nxt-logo.svg";
 import profilePic from "../../assets/profile-photo.png";
 import routes from "../../config/routeConstants";
+import toastNotify from "../../config/toastNotify";
 import {
   AddButton,
   FlexRow,
@@ -13,18 +14,21 @@ import {
 
 type CustomProps = { activeRoute: string };
 
-const Header = ({ activeRoute }: any) => {
+const Header = ({ activeRoute }: CustomProps) => {
   const history = useHistory();
 
   const navigateToAddResourcesPage = () => history.push(routes.addResources);
   const logout = () => {
+    toastNotify("Signed out..!", "success");
     Cookies.remove("jwt_token");
     history.replace("/login");
   };
 
   return (
     <HeaderBgContainer>
-      <WebsiteLogo alt="website-logo" src={nxtLogo} />
+      <Link to={routes.home}>
+        <WebsiteLogo alt="website-logo" src={nxtLogo} />
+      </Link>
       <FlexRow>
         {activeRoute === routes.home && (
           <AddButton onClick={navigateToAddResourcesPage}>

@@ -8,7 +8,7 @@ const toastNotify = (msg: string, type: TypeOptions | undefined) => {
     pauseOnHover: true,
     type: type,
     style: {
-      background: type === "error" ? "tomato" : "green",
+      background: type === "error" ? "#eb3f3a" : "#00b227",
       fontWeight: 700,
       color: "white",
     },
