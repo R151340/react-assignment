@@ -1,6 +1,6 @@
 const routes = {
-  home: "home",
-  addResources: "add_resources",
+  home: "/",
+  addResources: "/add-resources",
 };
 
 export default routes;
