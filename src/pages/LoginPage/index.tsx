@@ -17,12 +17,14 @@ import routes from "../../config/routeConstants";
 import toastNotify from "../../config/toastNotify";
 
 const LoginPage = () => {
+  const history = useHistory();
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const history = useHistory();
+  const accessToken = Cookies.get("jwt_token");
+  if (accessToken !== undefined) return <Redirect to={routes.home} />;
 
   const saveTokenAndGoToHome = (token: string) => {
     toastNotify("Signed in successfully !", "success");
@@ -46,9 +48,6 @@ const LoginPage = () => {
       setErrorMessage(data.error_msg);
     }
   };
-
-  const accessToken = Cookies.get("jwt_token");
-  if (accessToken !== undefined) return <Redirect to={routes.home} />;
 
   return (
     <LoginResponsiveContainer>

@@ -1,4 +1,4 @@
-import ResourceType from "../../config/resourceType";
+import { ResourceType } from "../../config/customTypes";
 import {
   CardBgContainer,
   IconTitleRow,

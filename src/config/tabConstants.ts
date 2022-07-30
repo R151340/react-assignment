@@ -1,7 +1,7 @@
-const tabConstants = {
+const tabs = {
   resources: "RESOURCES",
   requests: "request",
   users: "user",
 };
 
-export default tabConstants;
+export default tabs;

@@ -20,6 +20,7 @@ export const CardsContainer = styled.ul`
   flex-wrap: wrap;
   gap: 32px;
   justify-content: center;
+  margin-bottom: 48px;
 `;
 
 export const SearchBarWrapper = styled.div`

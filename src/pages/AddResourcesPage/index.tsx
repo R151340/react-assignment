@@ -39,6 +39,43 @@ const AddResourcesPage = () => {
     }
   };
 
+  const renderForm = () => (
+    <AddResourcesForm>
+      <FormLabel htmlFor="nameInput">name</FormLabel>
+      <FormInput
+        id="nameInput"
+        type="text"
+        value={name}
+        onChange={(e: any) => setName(e.target.value)}
+      />
+      <FormLabel htmlFor="linkInput">link</FormLabel>
+      <FormInput
+        isLink
+        id="linkInput"
+        type="text"
+        value={link}
+        onChange={(e: any) => setLink(e.target.value)}
+      />
+      <FormLabel htmlFor="descriptionInput">description</FormLabel>
+      <FormInput
+        id="descriptionInput"
+        as={"textarea"}
+        rows={3}
+        type="text"
+        value={description}
+        onChange={(e: any) => setDescription(e.target.value)}
+      />
+      <IconTitleRow>
+        <IconContainer>
+          <Icon alt="resource-icon" src={avatar} />
+        </IconContainer>
+        <img alt="upload-icon" className="mr-4px" src={uploadIcon} />
+        Change photo
+      </IconTitleRow>
+      <CreateButton onClick={validateAndSubmit}>Create</CreateButton>
+    </AddResourcesForm>
+  );
+
   return (
     <FullVH>
       <Header activeRoute={routes.addResources} />
@@ -50,40 +87,7 @@ const AddResourcesPage = () => {
           </BackNavigation>
           <div>
             <FormTitle>Add a Resource</FormTitle>
-            <AddResourcesForm>
-              <FormLabel htmlFor="nameInput">name</FormLabel>
-              <FormInput
-                id="nameInput"
-                type="text"
-                value={name}
-                onChange={(e: any) => setName(e.target.value)}
-              />
-              <FormLabel htmlFor="linkInput">link</FormLabel>
-              <FormInput
-                isLink
-                id="linkInput"
-                type="text"
-                value={link}
-                onChange={(e: any) => setLink(e.target.value)}
-              />
-              <FormLabel htmlFor="descriptionInput">description</FormLabel>
-              <FormInput
-                id="descriptionInput"
-                as={"textarea"}
-                rows={3}
-                type="text"
-                value={description}
-                onChange={(e: any) => setDescription(e.target.value)}
-              />
-              <IconTitleRow>
-                <IconContainer>
-                  <Icon alt="resource-icon" src={avatar} />
-                </IconContainer>
-                <img alt="upload-icon" className="mr-4px" src={uploadIcon} />
-                Change photo
-              </IconTitleRow>
-              <CreateButton onClick={validateAndSubmit}>Create</CreateButton>
-            </AddResourcesForm>
+            {renderForm()}
           </div>
         </FormContainer>
         <BannerContainer>

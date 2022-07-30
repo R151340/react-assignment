@@ -1,4 +1,4 @@
-type ResourceType = {
+export type ResourceType = {
   title: string;
   icon_url: string;
   link: string;
@@ -7,5 +7,3 @@ type ResourceType = {
   tag: string;
   id: string;
 };
-
-export default ResourceType;
