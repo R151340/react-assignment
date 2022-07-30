@@ -5,7 +5,13 @@ import Tabs from "../../components/Tabs";
 import ResourceType from "../../config/resourceType";
 import routes from "../../config/routeConstants";
 import tabConstants from "../../config/tabConstants";
-import { HomePageContainer, FullVH, CardsContainer } from "./styledComponents";
+import {
+  HomePageContainer,
+  FullVH,
+  CardsContainer,
+  SearchBarWrapper,
+  SearchBox,
+} from "./styledComponents";
 
 const apiConstants = {
   initial: "INITIAL",
@@ -18,6 +24,7 @@ const HomePage = () => {
   const [activeTab, setActiveTab] = useState(tabConstants.resources);
   const [apiStatus, setApiStatus] = useState(apiConstants.initial);
   const [resourcesData, setResourcesData] = useState<ResourceType[]>([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const fetchResourcesData = async () => {
     setApiStatus(apiConstants.inProgress);
@@ -39,15 +46,44 @@ const HomePage = () => {
     fetchResourcesData();
   }, []);
 
-  const searchResults = resourcesData.filter((c) => c.tag === activeTab);
+  // title: string;
+  // icon_url: string;
+  // link: string;
+  // description: string;
+  // category: string;
+  // tag: string;
+  // id: string;
+
+  let searchResults = resourcesData.filter((item) =>
+    Object.values(item).some((val) =>
+      val.toLowerCase().includes(searchInput.toLowerCase())
+    )
+  );
+
+  searchResults = searchResults.filter(
+    (item) =>
+      activeTab === tabConstants.resources ||
+      (activeTab === tabConstants.requests &&
+        item.tag === tabConstants.requests) ||
+      (activeTab === tabConstants.users && item.tag === tabConstants.users)
+  );
 
   return (
     <FullVH>
       <Header activeRoute={routes.home} />
       <HomePageContainer>
         <Tabs activeTab={activeTab} changeTab={setActiveTab} />
+        <SearchBarWrapper>
+          <i className="fa-solid fa-magnifying-glass"></i>
+          <SearchBox
+            type="search"
+            placeholder="Search"
+            value={searchInput}
+            onChange={(e: any) => setSearchInput(e.target.value)}
+          />
+        </SearchBarWrapper>
         <CardsContainer>
-          {resourcesData.map((item) => (
+          {searchResults.map((item) => (
             <ResourceCard key={item.id} data={item} />
           ))}
         </CardsContainer>

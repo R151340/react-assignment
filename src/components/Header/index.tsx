@@ -3,7 +3,6 @@ import profilePic from "../../assets/profile-photo.png";
 import routes from "../../config/routeConstants";
 import {
   AddButton,
-  BigPlus,
   FlexRow,
   HeaderBgContainer,
   ProfilePhoto,
@@ -19,7 +18,7 @@ const Header = ({ activeRoute }: CustomProps) => {
       <FlexRow>
         {activeRoute === routes.home && (
           <AddButton>
-            <BigPlus>+</BigPlus>
+            <i className="fa-solid fa-plus mr-8px"></i>
             ADD
           </AddButton>
         )}

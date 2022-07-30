@@ -6,7 +6,6 @@ export const CardBgContainer = styled.li`
   border-radius: 4px;
   padding: 24px;
   padding-bottom: 8px;
-  margin: 16px;
   width: 360px;
 `;
 

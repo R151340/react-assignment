@@ -45,9 +45,3 @@ export const FlexRow = styled.div`
   flex-direction: row;
   align-items: center;
 `;
-
-export const BigPlus = styled.span`
-  font-size: 22px;
-  font-weight: bolder;
-  margin-right: 8px;
-`;
