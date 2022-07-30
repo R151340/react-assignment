@@ -20,12 +20,39 @@ import {
   IconTitleRow,
   PageWrapper,
 } from "./styledComponents";
+import { toast, TypeOptions } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddResourcesPage = () => {
-  const history = useHistory();
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [description, setDescription] = useState("");
+
+  const history = useHistory();
+  const notify = (msg: string, type: TypeOptions | undefined) => {
+    return toast(msg, {
+      position: "bottom-center",
+      autoClose: 5000,
+      closeOnClick: true,
+      pauseOnHover: true,
+      type: type,
+      style: {
+        background: type === "error" ? "tomato" : "green",
+        fontWeight: 700,
+        color: "white",
+      },
+    });
+  };
+
+  const validateAndSubmit = async () => {
+    if (!name) notify("Please fill the name", "error");
+    else if (!link) notify("Please provide a Link", "error");
+    else if (!description) notify("Description is required!", "error");
+    else {
+      notify("Successfully added a Resource..!", "success");
+      history.push(routes.home);
+    }
+  };
 
   return (
     <FullVH>
@@ -70,7 +97,7 @@ const AddResourcesPage = () => {
                 <img alt="upload-icon" className="mr-4px" src={uploadIcon} />
                 Change photo
               </IconTitleRow>
-              <CreateButton>Create</CreateButton>
+              <CreateButton onClick={validateAndSubmit}>Create</CreateButton>
             </AddResourcesForm>
           </div>
         </FormContainer>
