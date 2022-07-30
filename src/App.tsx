@@ -1,16 +1,25 @@
-import "./App.css";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import routes from "./config/routeConstants";
 import AddResourcesPage from "./pages/AddResourcesPage";
 import { ToastContainer } from "react-toastify";
+import LoginPage from "./pages/LoginPage";
+
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={routes.home} component={HomePage} />
-        <Route path={routes.addResources} component={AddResourcesPage} />
+        <Route path={routes.login} component={LoginPage} />
+        <ProtectedRoute exact path={routes.home} component={HomePage} />
+        <ProtectedRoute
+          exact
+          path={routes.addResources}
+          component={AddResourcesPage}
+        />
       </Switch>
       <ToastContainer />
     </BrowserRouter>

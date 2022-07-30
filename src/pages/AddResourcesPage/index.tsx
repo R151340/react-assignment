@@ -20,8 +20,7 @@ import {
   IconTitleRow,
   PageWrapper,
 } from "./styledComponents";
-import { toast, TypeOptions } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toastNotify from "../../config/toastNotify";
 
 const AddResourcesPage = () => {
   const [name, setName] = useState("");
@@ -29,27 +28,13 @@ const AddResourcesPage = () => {
   const [description, setDescription] = useState("");
 
   const history = useHistory();
-  const notify = (msg: string, type: TypeOptions | undefined) => {
-    return toast(msg, {
-      position: "bottom-center",
-      autoClose: 5000,
-      closeOnClick: true,
-      pauseOnHover: true,
-      type: type,
-      style: {
-        background: type === "error" ? "tomato" : "green",
-        fontWeight: 700,
-        color: "white",
-      },
-    });
-  };
 
   const validateAndSubmit = async () => {
-    if (!name) notify("Please fill the name", "error");
-    else if (!link) notify("Please provide a Link", "error");
-    else if (!description) notify("Description is required!", "error");
+    if (!name) toastNotify("Please fill the name", "error");
+    else if (!link) toastNotify("Please provide a Link", "error");
+    else if (!description) toastNotify("Description is required!", "error");
     else {
-      notify("Successfully added a Resource..!", "success");
+      toastNotify("Successfully added a Resource..!", "success");
       history.push(routes.home);
     }
   };

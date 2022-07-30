@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { Link, useHistory } from "react-router-dom";
 import nxtLogo from "../../assets/nxt-logo.svg";
 import profilePic from "../../assets/profile-photo.png";
@@ -16,6 +17,10 @@ const Header = ({ activeRoute }: any) => {
   const history = useHistory();
 
   const navigateToAddResourcesPage = () => history.push(routes.addResources);
+  const logout = () => {
+    Cookies.remove("jwt_token");
+    history.replace("/login");
+  };
 
   return (
     <HeaderBgContainer>
@@ -27,7 +32,7 @@ const Header = ({ activeRoute }: any) => {
             ADD
           </AddButton>
         )}
-        <ProfilePhoto alt="profile-pic" src={profilePic} />
+        <ProfilePhoto alt="profile-pic" src={profilePic} onClick={logout} />
       </FlexRow>
     </HeaderBgContainer>
   );
