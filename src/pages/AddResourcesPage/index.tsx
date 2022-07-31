@@ -23,6 +23,7 @@ import {
 } from "./styledComponents";
 import { notifyErrorToast, notifySuccessToast } from "../../config/toastNotify";
 import Tippy from "@tippyjs/react";
+import { nameRegex, urlRegex } from "../../config/validationConstants";
 
 const AddResourcesPage = () => {
   const [name, setName] = useState("");
@@ -32,14 +33,25 @@ const AddResourcesPage = () => {
   const history = useHistory();
 
   const validateAndSubmit = async () => {
-    if (!name) notifyErrorToast("Please fill the name");
-    else if (!link) notifyErrorToast("Please provide a Link");
-    else if (!description) notifyErrorToast("Description is required!");
-    else {
-      notifySuccessToast("Successfully added a Resource..!");
-      history.push(routes.home);
-    }
+    if (!name.match(nameRegex)) notifyErrorToast("Invalid Name");
+    else if (!link.match(urlRegex)) notifyErrorToast("Invalid Link");
+    else
+      try {
+        const URL =
+          "https://media-content.ccbp.in/website/react-assignment/add_resource.json";
+        const response = await fetch(URL);
+        if (response.ok) {
+          notifySuccessToast("Successfully added a Resource..!");
+          history.push(routes.home);
+        } else {
+          notifyErrorToast("Error occured !");
+        }
+      } catch (err: any) {
+        notifyErrorToast("Couldn't connect");
+      }
   };
+
+  const shouldButtonBeDisabled = () => !(name && link && description);
 
   const renderForm = () => (
     <AddResourcesForm>
@@ -55,6 +67,7 @@ const AddResourcesPage = () => {
         isLink
         id="linkInput"
         type="text"
+        placeholder="Ex:- https://www.google.com"
         value={link}
         onChange={(e: any) => setLink(e.target.value)}
       />
@@ -74,7 +87,12 @@ const AddResourcesPage = () => {
         <img alt="upload-icon" className="mr-4px" src={uploadIcon} />
         Change photo
       </IconTitleRow>
-      <CreateButton onClick={validateAndSubmit}>Create</CreateButton>
+      <CreateButton
+        onClick={validateAndSubmit}
+        disabled={shouldButtonBeDisabled()}
+      >
+        Create
+      </CreateButton>
     </AddResourcesForm>
   );
 

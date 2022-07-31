@@ -49,7 +49,7 @@ const LoginPage = () => {
         notifyErrorToast(data.error_msg);
       }
     } catch (err: any) {
-      notifyErrorToast("Error Occured!" + err.message);
+      notifyErrorToast("Couldn't connect");
     }
   };
 

@@ -104,7 +104,7 @@ export const Icon = styled.img`
 
 export const CreateButton = styled.button`
   padding: 8px 20px;
-  background: #0b69ff;
+  background: ${(p) => (p.disabled ? "gray" : "#0b69ff")};
   border-radius: 4px;
   font-weight: 600;
   font-size: 14px;
@@ -113,6 +113,6 @@ export const CreateButton = styled.button`
   border: none;
   outline: none;
   align-self: center;
-  cursor: pointer;
+  cursor: ${(p) => (p.disabled ? "not-allowed" : "pointer")};
   margin-top: 80px;
 `;

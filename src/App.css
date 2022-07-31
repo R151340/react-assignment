@@ -22,3 +22,11 @@ a {
 .my-tooltip {
   display: none;
 }
+
+.more-info {
+  align-self: flex-start;
+  font-size: 24px;
+  margin-left: auto;
+  color: #c1c8d1;
+  cursor: pointer;
+}
