@@ -3,3 +3,7 @@ export const urlRegex = new RegExp(
 );
 
 export const nameRegex = new RegExp(/^[a-zA-Z ]{2,30}$/);
+
+export const phnoRegex = new RegExp(
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+);

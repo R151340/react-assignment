@@ -12,7 +12,7 @@ export const LoginForm = styled.form`
   font-family: "Roboto";
   background-color: white;
   color: #181818;
-  box-shadow: 0 8px 40px rgba(7, 7, 7, 0.3);
+  box-shadow: 0 4px 10px rgba(7, 7, 7, 0.3);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@ export const Input = styled.input`
 export const SubmitBtn = styled.button`
   width: 312px;
   height: 40px;
-  background: #4094ef;
+  background: ${(p) => (p.disabled ? "gray" : "#4094ef")};
   border-radius: 8px;
   border: none;
   font-weight: bold;
@@ -70,21 +70,12 @@ export const SubmitBtn = styled.button`
   text-align: center;
   color: #ffffff;
   margin-top: 8px;
-  cursor: pointer;
+  cursor: ${(p) => (p.disabled ? "not-allowed" : "pointer")};
 
   @media screen and (min-width: 768px) {
     width: 360px;
     margin-top: 16px;
   }
-`;
-
-export const ErrMsg = styled.p`
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
-  color: #ef4444;
 `;
 
 export const Dflex = styled.div`

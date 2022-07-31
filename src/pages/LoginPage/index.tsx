@@ -4,7 +4,6 @@ import { Redirect, useHistory } from "react-router-dom";
 import {
   CheckBox,
   Dflex,
-  ErrMsg,
   Input,
   Label,
   LoginForm,
@@ -15,13 +14,13 @@ import {
 import websiteLogo from "../../assets/nxt-logo.svg";
 import routes from "../../config/routeConstants";
 import { notifyErrorToast, notifySuccessToast } from "../../config/toastNotify";
+import { phnoRegex } from "../../config/validationConstants";
 
 const LoginPage = () => {
   const history = useHistory();
-  const [usernameInput, setUsernameInput] = useState("");
+  const [phnoInput, setPhnoInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const accessToken = Cookies.get("jwt_token");
   if (accessToken !== undefined) return <Redirect to={routes.home} />;
@@ -34,35 +33,23 @@ const LoginPage = () => {
 
   const onSubmitForm = async (event: any) => {
     event.preventDefault();
-    try {
-      const userDetails = { username: usernameInput, password: passwordInput };
-      const URL = "https://apis.ccbp.in/login";
-      const options = {
-        method: "POST",
-        body: JSON.stringify(userDetails),
-      };
-      const response = await fetch(URL, options);
-      const data = await response.json();
-      if (response.ok) saveTokenAndGoToHome(data.jwt_token);
-      else {
-        setErrorMessage(data.error_msg);
-        notifyErrorToast(data.error_msg);
-      }
-    } catch (err: any) {
-      notifyErrorToast("Couldn't connect");
-    }
+    if (!phnoInput.match(phnoRegex)) notifyErrorToast("Invalid Phone Number");
+    else saveTokenAndGoToHome("SOME_RANDOM_TOKEN");
   };
+
+  const shouldDisableButton = () => !(phnoInput && passwordInput);
 
   return (
     <LoginResponsiveContainer>
       <LoginForm onSubmit={onSubmitForm}>
         <WebsiteLogoImg alt="website logo" src={websiteLogo} />
-        <Label htmlFor="nameInput">USERNAME</Label>
+        <Label htmlFor="phnoInput">Phone Number</Label>
         <Input
-          type="text"
-          id="nameInput"
-          value={usernameInput}
-          onChange={(e: any) => setUsernameInput(e.target.value)}
+          type="tel"
+          id="phnoInput"
+          maxLength={14}
+          value={phnoInput}
+          onChange={(e: any) => setPhnoInput(e.target.value)}
         />
         <Label htmlFor="passwordInput">PASSWORD</Label>
         <Input
@@ -81,8 +68,9 @@ const LoginPage = () => {
             Show Password
           </Label>
         </Dflex>
-        <SubmitBtn type="submit">Login</SubmitBtn>
-        <ErrMsg>{errorMessage}</ErrMsg>
+        <SubmitBtn type="submit" disabled={shouldDisableButton()}>
+          Login
+        </SubmitBtn>
       </LoginForm>
     </LoginResponsiveContainer>
   );
