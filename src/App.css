@@ -30,3 +30,11 @@ a {
   color: #c1c8d1;
   cursor: pointer;
 }
+
+.image-input-label {
+  cursor: pointer;
+}
+
+.image-input {
+  display: none;
+}

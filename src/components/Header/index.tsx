@@ -21,9 +21,9 @@ const Header = ({ activeRoute }: CustomProps) => {
 
   const navigateToAddResourcesPage = () => history.push(routes.addResources);
   const logout = () => {
+    notifySuccessToast("Logout successful!");
     Cookies.remove("jwt_token");
     history.replace("/login");
-    notifySuccessToast("Logout successful!");
   };
 
   return (

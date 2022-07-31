@@ -50,4 +50,5 @@ export const Description = styled.p`
   font-size: 14px;
   line-height: 24px;
   color: ${(p: any) => (p.as === "a" ? "#0B69FF" : "#7e858e")};
+  word-wrap: break-word;
 `;

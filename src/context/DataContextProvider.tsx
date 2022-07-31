@@ -7,6 +7,7 @@ type IncompleteResourceType = {
   title: string;
   link: string;
   description: string;
+  img: string;
 };
 
 type DataContextType = {
@@ -14,14 +15,19 @@ type DataContextType = {
   resources: ResourceType[];
   setResources: React.Dispatch<React.SetStateAction<ResourceType[]>>;
   setFetchAgain: React.Dispatch<React.SetStateAction<boolean>>;
-  addResource: ({ title, link, description }: IncompleteResourceType) => void;
+  addResource: ({
+    title,
+    link,
+    description,
+    img,
+  }: IncompleteResourceType) => void;
 };
 
 const DataContext = createContext<DataContextType>({
   resources: [],
   fetchAgain: true,
   setFetchAgain: () => {},
-  addResource: ({ title, link, description }) => {},
+  addResource: ({ title, link, description, img }) => {},
   setResources: () => {},
 });
 
@@ -33,12 +39,13 @@ const DataContextProvider = ({ children }: { children: JSX.Element }) => {
     title,
     link,
     description,
+    img,
   }: IncompleteResourceType) => {
     const newResource: ResourceType = {
       title,
       link,
       description,
-      icon_url: faker.image.avatar(),
+      icon_url: img,
       category: faker.commerce.department(),
       tag: [tabs.requests, tabs.users][resources.length & 1],
       id: (resources.length + 1).toString(),

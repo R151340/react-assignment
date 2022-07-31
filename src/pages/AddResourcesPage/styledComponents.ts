@@ -18,6 +18,7 @@ export const FormContainer = styled.div`
 
 export const BannerImg = styled.img`
   width: 100%;
+  max-height: 93vh;
 `;
 
 export const BannerContainer = styled.div`
@@ -90,10 +91,10 @@ export const IconContainer = styled.div`
   background: #ffffff;
   border: 2px solid #d7dfe9;
   border-radius: 4px;
-  padding: 8px;
-  height: 44px;
-  width: 44px;
+  height: 48px;
+  width: 48px;
   margin-right: 16px;
+  padding: 4px;
 `;
 
 export const Icon = styled.img`

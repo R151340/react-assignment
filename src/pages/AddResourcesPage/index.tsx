@@ -30,6 +30,7 @@ const AddResourcesPage = () => {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [description, setDescription] = useState("");
+  const [img, setImg] = useState(avatar);
 
   const { addResource } = DataState();
 
@@ -44,7 +45,7 @@ const AddResourcesPage = () => {
           "https://media-content.ccbp.in/website/react-assignment/add_resource.json";
         const response = await fetch(URL);
         if (response.ok) {
-          addResource({ title: name, link, description });
+          addResource({ title: name, link, description, img });
           notifySuccessToast("Successfully added a Resource..!");
           history.push(routes.home);
         } else {
@@ -56,6 +57,11 @@ const AddResourcesPage = () => {
   };
 
   const shouldButtonBeDisabled = () => !(name && link && description);
+
+  const onImageChange = (e: any) => {
+    const [file] = e.target.files;
+    setImg(URL.createObjectURL(file));
+  };
 
   const renderForm = () => (
     <AddResourcesForm>
@@ -84,13 +90,22 @@ const AddResourcesPage = () => {
         value={description}
         onChange={(e: any) => setDescription(e.target.value)}
       />
-      <IconTitleRow>
-        <IconContainer>
-          <Icon alt="resource-icon" src={avatar} />
-        </IconContainer>
-        <img alt="upload-icon" className="mr-4px" src={uploadIcon} />
-        Change photo
-      </IconTitleRow>
+      <label htmlFor="uploadPic" className="image-input-label">
+        <IconTitleRow>
+          <IconContainer>
+            <Icon alt="resource-icon" src={img} />
+          </IconContainer>
+          <img alt="upload-icon" className="mr-4px" src={uploadIcon} />
+          Change photo
+        </IconTitleRow>
+      </label>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={onImageChange}
+        className="image-input"
+        id="uploadPic"
+      />
       <CreateButton
         onClick={validateAndSubmit}
         disabled={shouldButtonBeDisabled()}

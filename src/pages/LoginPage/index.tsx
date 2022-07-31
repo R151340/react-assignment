@@ -26,9 +26,9 @@ const LoginPage = () => {
   if (accessToken !== undefined) return <Redirect to={routes.home} />;
 
   const saveTokenAndGoToHome = (token: string) => {
+    notifySuccessToast("Login successful !");
     Cookies.set("jwt_token", token, { expires: 5 });
     history.replace("/");
-    notifySuccessToast("Login successful !");
   };
 
   const onSubmitForm = async (event: any) => {
