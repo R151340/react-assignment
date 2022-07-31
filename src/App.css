@@ -38,3 +38,8 @@ a {
 .image-input {
   display: none;
 }
+
+.vh-70-overflow-scroll {
+  height: 60vh;
+  overflow-y: auto;
+}

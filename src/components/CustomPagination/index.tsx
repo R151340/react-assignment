@@ -1,3 +1,4 @@
+import { notifyErrorToast } from "../../config/toastNotify";
 import { PageButton, PaginationBgContainer } from "./styledComponents";
 
 type CustomProps = {
@@ -6,20 +7,26 @@ type CustomProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const CustomPagination = ({
-  totalLength,
-  activePage,
-  setActivePage,
-}: CustomProps) => {
+const CustomPagination = (props: CustomProps) => {
+  const { totalLength, activePage, setActivePage } = props;
   const totalPages = Math.ceil(totalLength / 9);
-  // generate 0 to N nums.
+  // generate [0 to N] nums. here, [0, 1, 2, ...totalPages]
   const nums = [...Array(totalPages)].map((_, index) => index);
+
+  const goToPreviousPage = () => {
+    if (activePage - 1 >= 0) setActivePage(activePage - 1);
+    else notifyErrorToast("Reached to First page");
+  };
+  const goToNextPage = () => {
+    if (activePage + 1 < totalPages) setActivePage(activePage + 1);
+    else notifyErrorToast("Reached to Last page");
+  };
 
   return (
     <PaginationBgContainer>
       {totalPages > 3 && (
-        <PageButton key="first" onClick={() => setActivePage(0)}>
-          <i className="fa-solid fa-angles-left"></i>
+        <PageButton key="prev" onClick={goToPreviousPage}>
+          <i className="fa-solid fa-angle-left"></i>
         </PageButton>
       )}
       {nums.map((n) => (
@@ -32,8 +39,8 @@ const CustomPagination = ({
         </PageButton>
       ))}
       {totalPages > 3 && (
-        <PageButton key="last" onClick={() => setActivePage(totalPages - 1)}>
-          <i className="fa-solid fa-angles-right"></i>
+        <PageButton key="next" onClick={goToNextPage}>
+          <i className="fa-solid fa-angle-right"></i>
         </PageButton>
       )}
     </PaginationBgContainer>

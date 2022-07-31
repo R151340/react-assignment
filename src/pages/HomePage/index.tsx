@@ -66,13 +66,15 @@ const HomePage = () => {
 
   const SuccessView = () => (
     <>
-      <CardsContainer>
-        {searchResults
-          .slice(activePage * 9, (activePage + 1) * 9)
-          .map((item) => (
-            <ResourceCard key={item.id} data={item} />
-          ))}
-      </CardsContainer>
+      <div className="vh-70-overflow-scroll">
+        <CardsContainer>
+          {searchResults
+            .slice(activePage * 9, (activePage + 1) * 9)
+            .map((item) => (
+              <ResourceCard key={item.id} data={item} />
+            ))}
+        </CardsContainer>
+      </div>
       {searchResults.length > 9 && (
         <CustomPagination
           activePage={activePage}

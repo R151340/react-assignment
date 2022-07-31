@@ -66,7 +66,7 @@ export const FormLabel = styled.label`
 
 export const FormInput: any = styled.input`
   padding: 8px 16px;
-  width: 320px;
+  width: 330px;
   background: #ffffff;
   border: 1px solid #d7dfe9;
   outline: none;

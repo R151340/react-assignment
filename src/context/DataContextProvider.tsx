@@ -15,19 +15,14 @@ type DataContextType = {
   resources: ResourceType[];
   setResources: React.Dispatch<React.SetStateAction<ResourceType[]>>;
   setFetchAgain: React.Dispatch<React.SetStateAction<boolean>>;
-  addResource: ({
-    title,
-    link,
-    description,
-    img,
-  }: IncompleteResourceType) => void;
+  addResource: (resourceObj: IncompleteResourceType) => void;
 };
 
 const DataContext = createContext<DataContextType>({
   resources: [],
   fetchAgain: true,
   setFetchAgain: () => {},
-  addResource: ({ title, link, description, img }) => {},
+  addResource: (resourceObj) => {},
   setResources: () => {},
 });
 
@@ -35,12 +30,8 @@ const DataContextProvider = ({ children }: { children: JSX.Element }) => {
   const [resources, setResources] = useState<ResourceType[]>([]);
   const [fetchAgain, setFetchAgain] = useState(true);
 
-  const addResource = ({
-    title,
-    link,
-    description,
-    img,
-  }: IncompleteResourceType) => {
+  const addResource = (resourceObj: IncompleteResourceType) => {
+    const { title, link, description, img } = resourceObj;
     const newResource: ResourceType = {
       title,
       link,
