@@ -18,3 +18,7 @@ a {
 .mr-4px {
   margin-right: 4px;
 }
+
+.my-tooltip {
+  display: none;
+}

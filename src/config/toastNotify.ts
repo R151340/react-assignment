@@ -1,18 +1,29 @@
-import { toast, TypeOptions } from "react-toastify";
+import { toast } from "react-toastify";
 
-const toastNotify = (msg: string, type: TypeOptions | undefined) => {
-  return toast(msg, {
+export const notifyErrorToast = (msg: string) =>
+  toast.error(msg, {
     position: "bottom-center",
-    autoClose: type === "error" ? 5000 : 3000,
+    autoClose: 5000,
     closeOnClick: true,
     pauseOnHover: true,
-    type: type,
     style: {
-      background: type === "error" ? "#eb3f3a" : "#00b227",
+      background: "#eb3f3a",
       fontWeight: 700,
       color: "white",
     },
+    progressStyle: { backgroundColor: "#ffffff80" },
   });
-};
 
-export default toastNotify;
+export const notifySuccessToast = (msg: string) =>
+  toast.success(msg, {
+    position: "bottom-center",
+    autoClose: 2000,
+    closeOnClick: true,
+    pauseOnHover: true,
+    style: {
+      background: "#00b227",
+      fontWeight: 700,
+      color: "white",
+    },
+    progressStyle: { backgroundColor: "#ffffff80" },
+  });

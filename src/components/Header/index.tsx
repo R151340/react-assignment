@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import nxtLogo from "../../assets/nxt-logo.svg";
 import profilePic from "../../assets/profile-photo.png";
 import routes from "../../config/routeConstants";
-import toastNotify from "../../config/toastNotify";
+import { notifySuccessToast } from "../../config/toastNotify";
 import {
   AddButton,
   FlexRow,
@@ -11,6 +11,8 @@ import {
   ProfilePhoto,
   WebsiteLogo,
 } from "./styledComponents";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 type CustomProps = { activeRoute: string };
 
@@ -19,9 +21,9 @@ const Header = ({ activeRoute }: CustomProps) => {
 
   const navigateToAddResourcesPage = () => history.push(routes.addResources);
   const logout = () => {
-    toastNotify("Signed out..!", "success");
     Cookies.remove("jwt_token");
     history.replace("/login");
+    notifySuccessToast("Logout successful!");
   };
 
   return (
@@ -31,12 +33,16 @@ const Header = ({ activeRoute }: CustomProps) => {
       </Link>
       <FlexRow>
         {activeRoute === routes.home && (
-          <AddButton onClick={navigateToAddResourcesPage}>
-            <i className="fa-solid fa-plus mr-8px"></i>
-            ADD
-          </AddButton>
+          <Tippy content="Add a resource">
+            <AddButton onClick={navigateToAddResourcesPage}>
+              <i className="fa-solid fa-plus mr-8px"></i>
+              ADD
+            </AddButton>
+          </Tippy>
         )}
-        <ProfilePhoto alt="profile-pic" src={profilePic} onClick={logout} />
+        <Tippy content="Logout">
+          <ProfilePhoto alt="profile-pic" src={profilePic} onClick={logout} />
+        </Tippy>
       </FlexRow>
     </HeaderBgContainer>
   );

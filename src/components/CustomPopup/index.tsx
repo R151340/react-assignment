@@ -9,7 +9,7 @@ type CustomProps = {
   data: ResourceType;
 };
 
-export default ({ children, data }: CustomProps) => (
+const CustomPopup = ({ children, data }: CustomProps) => (
   <Popup
     trigger={children}
     position="top center"
@@ -18,7 +18,7 @@ export default ({ children, data }: CustomProps) => (
   >
     <div className="popup-modal-bgcontainer">
       <img
-        alt="random-image"
+        alt="random-pic"
         src={data.icon_url}
         className="modal-content-photo"
       />
@@ -37,3 +37,5 @@ export default ({ children, data }: CustomProps) => (
     </div>
   </Popup>
 );
+
+export default CustomPopup;

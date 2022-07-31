@@ -1,5 +1,6 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
+import { AddButton } from "../../components/Header/styledComponents";
 import routes from "../../config/routeConstants";
 import { FullVH } from "../HomePage/styledComponents";
 import {
@@ -21,6 +22,10 @@ const NotFound = () => (
       <NotFoundText>
         We are sorry, the page you requested could not be found.
       </NotFoundText>
+      <br />
+      <Link to={routes.home}>
+        <AddButton>Go to Home Page</AddButton>
+      </Link>
     </NotFoundCard>
   </FullVH>
 );

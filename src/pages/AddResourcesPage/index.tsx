@@ -5,6 +5,7 @@ import routes from "../../config/routeConstants";
 import { FullVH } from "../HomePage/styledComponents";
 import uploadIcon from "../../assets/upload-icon.svg";
 import avatar from "../../assets/profile-photo.png";
+import "tippy.js/dist/tippy.css";
 import {
   AddResourcesForm,
   BackNavigation,
@@ -20,7 +21,8 @@ import {
   IconTitleRow,
   PageWrapper,
 } from "./styledComponents";
-import toastNotify from "../../config/toastNotify";
+import { notifyErrorToast, notifySuccessToast } from "../../config/toastNotify";
+import Tippy from "@tippyjs/react";
 
 const AddResourcesPage = () => {
   const [name, setName] = useState("");
@@ -30,11 +32,11 @@ const AddResourcesPage = () => {
   const history = useHistory();
 
   const validateAndSubmit = async () => {
-    if (!name) toastNotify("Please fill the name", "error");
-    else if (!link) toastNotify("Please provide a Link", "error");
-    else if (!description) toastNotify("Description is required!", "error");
+    if (!name) notifyErrorToast("Please fill the name");
+    else if (!link) notifyErrorToast("Please provide a Link");
+    else if (!description) notifyErrorToast("Description is required!");
     else {
-      toastNotify("Successfully added a Resource..!", "success");
+      notifySuccessToast("Successfully added a Resource..!");
       history.push(routes.home);
     }
   };
@@ -81,10 +83,12 @@ const AddResourcesPage = () => {
       <Header activeRoute={routes.addResources} />
       <PageWrapper>
         <FormContainer>
-          <BackNavigation onClick={() => history.goBack()}>
-            <i className="fa-solid fa-chevron-left mr-4px"></i>
-            Users
-          </BackNavigation>
+          <Tippy content="go back">
+            <BackNavigation onClick={() => history.goBack()}>
+              <i className="fa-solid fa-chevron-left mr-4px"></i>
+              Users
+            </BackNavigation>
+          </Tippy>
           <div>
             <FormTitle>Add a Resource</FormTitle>
             {renderForm()}

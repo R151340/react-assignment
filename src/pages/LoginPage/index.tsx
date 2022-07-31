@@ -14,7 +14,7 @@ import {
 } from "./styledComponents";
 import websiteLogo from "../../assets/nxt-logo.svg";
 import routes from "../../config/routeConstants";
-import toastNotify from "../../config/toastNotify";
+import { notifyErrorToast, notifySuccessToast } from "../../config/toastNotify";
 
 const LoginPage = () => {
   const history = useHistory();
@@ -27,25 +27,29 @@ const LoginPage = () => {
   if (accessToken !== undefined) return <Redirect to={routes.home} />;
 
   const saveTokenAndGoToHome = (token: string) => {
-    toastNotify("Signed in successfully !", "success");
     Cookies.set("jwt_token", token, { expires: 5 });
     history.replace("/");
+    notifySuccessToast("Login successful !");
   };
 
   const onSubmitForm = async (event: any) => {
     event.preventDefault();
-    const userDetails = { username: usernameInput, password: passwordInput };
-    const URL = "https://apis.ccbp.in/login";
-    const options = {
-      method: "POST",
-      body: JSON.stringify(userDetails),
-    };
-    const response = await fetch(URL, options);
-    const data = await response.json();
-    if (response.ok) saveTokenAndGoToHome(data.jwt_token);
-    else {
-      toastNotify(data.error_msg, "error");
-      setErrorMessage(data.error_msg);
+    try {
+      const userDetails = { username: usernameInput, password: passwordInput };
+      const URL = "https://apis.ccbp.in/login";
+      const options = {
+        method: "POST",
+        body: JSON.stringify(userDetails),
+      };
+      const response = await fetch(URL, options);
+      const data = await response.json();
+      if (response.ok) saveTokenAndGoToHome(data.jwt_token);
+      else {
+        setErrorMessage(data.error_msg);
+        notifyErrorToast(data.error_msg);
+      }
+    } catch (err: any) {
+      notifyErrorToast("Error Occured!" + err.message);
     }
   };
 

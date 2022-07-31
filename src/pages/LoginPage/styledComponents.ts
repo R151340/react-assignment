@@ -5,7 +5,7 @@ export const LoginResponsiveContainer: any = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #d7dfe9;
+  background-color: #f5f5f5;
 `;
 
 export const LoginForm = styled.form`
