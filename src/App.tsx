@@ -1,5 +1,5 @@
 import HomePage from "./pages/HomePage";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import routes from "./config/routeConstants";
 import AddResourcesPage from "./pages/AddResourcesPage";
 import { ToastContainer } from "react-toastify";
@@ -12,7 +12,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Switch>
         <Route path={routes.login} component={LoginPage} />
         <ProtectedRoute exact path={routes.home} component={HomePage} />
@@ -24,7 +24,7 @@ function App() {
         <ProtectedRoute component={NotFound} />
       </Switch>
       <ToastContainer />
-    </BrowserRouter>
+    </>
   );
 }
 

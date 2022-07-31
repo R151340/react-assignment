@@ -5,9 +5,9 @@ import Header from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
 import ResourceCard from "../../components/ResourceCard";
 import Tabs from "../../components/Tabs";
-import { ResourceType } from "../../config/customTypes";
 import routes from "../../config/routeConstants";
 import tabs from "../../config/tabConstants";
+import { DataState } from "../../context/DataContextProvider";
 import {
   HomePageContainer,
   FullVH,
@@ -25,10 +25,10 @@ const apiConstants = {
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState(tabs.resources);
-  const [apiStatus, setApiStatus] = useState(apiConstants.initial);
-  const [resourcesData, setResourcesData] = useState<ResourceType[]>([]);
+  const [apiStatus, setApiStatus] = useState(apiConstants.inProgress);
   const [searchInput, setSearchInput] = useState("");
 
+  const { resources, setResources, fetchAgain, setFetchAgain } = DataState();
   const [activePage, setActivePage] = useState(0);
 
   const fetchResourcesData = async () => {
@@ -39,7 +39,8 @@ const HomePage = () => {
       const response = await fetch(URL);
       if (response.ok) {
         const data = await response.json();
-        setResourcesData(data);
+        setResources(data);
+        setFetchAgain(false);
         setApiStatus(apiConstants.success);
       } else throw new Error("Something went wrong");
     } catch (err: any) {
@@ -48,10 +49,10 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchResourcesData();
+    fetchAgain ? fetchResourcesData() : setApiStatus(apiConstants.success);
   }, []);
 
-  let searchResults = resourcesData.filter((item) =>
+  let searchResults = resources.filter((item) =>
     Object.values(item).some((val) =>
       val.toLowerCase().includes(searchInput.toLowerCase())
     )

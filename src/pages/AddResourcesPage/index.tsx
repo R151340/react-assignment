@@ -24,11 +24,14 @@ import {
 import { notifyErrorToast, notifySuccessToast } from "../../config/toastNotify";
 import Tippy from "@tippyjs/react";
 import { nameRegex, urlRegex } from "../../config/validationConstants";
+import { DataState } from "../../context/DataContextProvider";
 
 const AddResourcesPage = () => {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [description, setDescription] = useState("");
+
+  const { addResource } = DataState();
 
   const history = useHistory();
 
@@ -41,6 +44,7 @@ const AddResourcesPage = () => {
           "https://media-content.ccbp.in/website/react-assignment/add_resource.json";
         const response = await fetch(URL);
         if (response.ok) {
+          addResource({ title: name, link, description });
           notifySuccessToast("Successfully added a Resource..!");
           history.push(routes.home);
         } else {
