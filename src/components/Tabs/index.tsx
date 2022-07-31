@@ -7,11 +7,14 @@ type CustomProps = {
   setActivePage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Tabs = ({ activeTab, changeTab, setActivePage }: CustomProps) => {
+const Tabs = (props: CustomProps) => {
+  const { activeTab, changeTab, setActivePage } = props;
+
   const onChangeTab = (tab: string) => {
     changeTab(tab);
     setActivePage(0);
   };
+
   return (
     <TabsContainer>
       <SingleTab

@@ -12,7 +12,7 @@ import {
 
 const NotFound = () => (
   <FullVH>
-    <Header activeRoute={routes.home} />
+    <Header activeRoute={routes.notFound} />
     <NotFoundCard>
       <NotFoundImg
         alt="not found"

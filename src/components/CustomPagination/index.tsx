@@ -1,4 +1,4 @@
-import { notifyErrorToast } from "../../config/toastNotify";
+import { notifySuccessToast } from "../../config/toastNotify";
 import { PageButton, PaginationBgContainer } from "./styledComponents";
 
 type CustomProps = {
@@ -15,11 +15,11 @@ const CustomPagination = (props: CustomProps) => {
 
   const goToPreviousPage = () => {
     if (activePage - 1 >= 0) setActivePage(activePage - 1);
-    else notifyErrorToast("Reached to First page");
+    else notifySuccessToast("Reached to First page already");
   };
   const goToNextPage = () => {
     if (activePage + 1 < totalPages) setActivePage(activePage + 1);
-    else notifyErrorToast("Reached to Last page");
+    else notifySuccessToast("Reached to Last page already");
   };
 
   return (
